@@ -4,32 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Request Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <button id="fetchButtonLocal">Send API Request Local</button>
-    <script>
-        
-        document.getElementById('fetchButtonLocal').addEventListener('click', function() {
-            const apiUrl = 'http://127.0.0.1:8010/v3/sigma/custom_label_types';
-            //const apiUrl = 'http://127.0.0.1:8080';
-            const headers = {
-                'User-Email': 'email@domain.com',
-                'Authorization': 'Token eyJhbGcijrktUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTMyNDM4NzIsImlhdCI6MTcxMzIwMDY3MiwiaWQiOiI0NTBjNGJlZC03MTYxLTRhYzktOThlYS00NTk5ODk5MGE1ODUiLCJqdGkiOiJJUHFIbiJ9.69sleO3hsbraIRlfFVnG9rjuTvsFGo0n0Qb-biUgWX4',
-                'Environment': 'live'
-            };
-
-            fetch(apiUrl, { headers: headers })
-                .then(response => {
-                    console.log("response.status",response.status);
-                    return response.json()
-                }) // converting the response to JSON
-                .then(data => {
-                    console.log("data", data)
-                }) // logging the data to the console
-                .catch(error => console.error('Error:', error)); // logging errors to the console
-        });
-
-    
-    </script>
+    <select id="requestDropdown">
+        <!-- Options will be populated from JSON files -->
+    </select>
+    <hr>
+    <label>URL: <span id="urlValue"></span></label>
+    <hr>
+    <label>Verb: </label>
+    <select id="verbDropdown">
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+        <option value="PUT">PUT</option>
+        <option value="DELETE">DELETE</option>
+    </select>
+    <hr>
+    <label>Headers: </label>
+    <table id="headersTable">
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+            <th></th>
+        </tr>
+        <!-- Rows will be populated from selected request -->
+    </table>
+    <button id="addHeader">Add Header</button>
+    <hr>
+    <textarea id="requestBody"></textarea>
+    <button id="sendRequest">Send Request</button>
+    <button id="saveRequest">Save Request</button>
+    <h2>Response</h2>
+    <p>Status: <span id="responseStatus"></span></p>
+    <p>Headers: <span id="responseHeaders"></span></p>
+    <p>Body: <span id="responseBody"></span></p>
+    <p>Error: <span id="responseError"></span></p>
+    <script src="script.js"></script>
 </body>
 </html>

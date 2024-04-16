@@ -1,0 +1,9 @@
+/* styles.css */
+#headersTable {
+  border-collapse: collapse;
+}
+
+#headersTable th, #headersTable td {
+  border: 1px solid black;
+  padding: 5px;
+}
