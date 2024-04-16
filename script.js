@@ -28,12 +28,11 @@ $(document).ready(function () {
         map[obj.name] = obj.values;
         return map;
       }, {});
-      console.log(headersMap);
       $.ajax({
         url: request.url,
         type: request.verb,
         headers: headersMap,
-        data: request.body,
+        data: JSON.stringify(request.body),
         success: function (response, textStatus, xhr) {
           console.log("success");
           // Populate the response elements
