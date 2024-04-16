@@ -14,32 +14,22 @@
     <hr>
     <label>URL: <span id="urlValue"></span></label>
     <hr>
-    <label>Verb: </label>
-    <select id="verbDropdown">
-        <option value="GET">GET</option>
-        <option value="POST">POST</option>
-        <option value="PUT">PUT</option>
-        <option value="DELETE">DELETE</option>
-    </select>
+    <label>Verb: <span id="verbValue"></span></label>
     <hr>
     <label>Headers: </label>
     <table id="headersTable">
         <tr>
             <th>Name</th>
             <th>Value</th>
-            <th></th>
         </tr>
         <!-- Rows will be populated from selected request -->
-        <tr>
-            <td><input id="newHeaderName" type="text" placeholder="Header name"></td>
-            <td><input id="newHeaderValue" type="text" placeholder="Header value"></td>
-            <td><button id="addHeaderButton">Add</button></td>
-        </tr>
     </table>
     <hr>
-    <textarea id="requestBody"></textarea>
+    <label>Body: </label>
+    <br>
+    <textarea id="requestBody" disabled rows="10"></textarea>
+    <hr>
     <button id="sendRequest">Send Request</button>
-    <button id="saveRequest">Save Request</button>
     <h2>Response</h2>
     <p>Status: <span id="responseStatus"></span></p>
     <p>Headers: <span id="responseHeaders"></span></p>

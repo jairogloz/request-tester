@@ -48,52 +48,6 @@ $(document).ready(function () {
       },
     });
   });
-
-  // Add event listener for "Save Request" button
-  $("#saveRequest").click(function () {
-    // This assumes you have a function saveRequest() that does this
-    saveRequest();
-  });
-
-  $("#addHeaderButton").click(function () {
-    var newHeaderName = $("#newHeaderName").val();
-    var newHeaderValue = $("#newHeaderValue").val();
-    if (newHeaderName && newHeaderValue) {
-      var row = $("<tr></tr>");
-      row.append($("<td></td>").text(newHeaderName));
-      row.append($("<td></td>").text(newHeaderValue));
-      row.append(
-        $("<td></td>").append(
-          $("<button>Delete</button>").click(function () {
-            $(this).parent().parent().remove();
-          })
-        )
-      ); // Add "Delete" button
-      $("#headersTable").find("tr:last").before(row);
-      $("#newHeaderName").val("");
-      $("#newHeaderValue").val("");
-    }
-  });
-
-  $("#addHeaderButton").click(function () {
-    var newHeaderName = $("#newHeaderName").val();
-    var newHeaderValue = $("#newHeaderValue").val();
-    if (newHeaderName && newHeaderValue) {
-      var row = $("<tr></tr>");
-      row.append($("<td></td>").text(newHeaderName));
-      row.append($("<td></td>").text(newHeaderValue));
-      row.append(
-        $("<td></td>").append(
-          $("<button>Delete</button>").click(function () {
-            $(this).parent().parent().remove();
-          })
-        )
-      ); // Add "Delete" button
-      $("#headersTable").find("tr:last").before(row);
-      $("#newHeaderName").val("");
-      $("#newHeaderValue").val("");
-    }
-  });
 });
 
 function loadRequests() {
@@ -112,21 +66,15 @@ function loadRequests() {
       var selectedOption = $(this).find("option:selected");
       var request = selectedOption.data("request");
       $("#urlValue").text(request.url);
-      $("#verbDropdown").val(request.verb);
+      $("#verbValue").text(request.verb);
+      $("#requestBody").text(JSON.stringify(request.body, null, 2));
       var headersTable = $("#headersTable");
-      headersTable.find("tr:gt(0):not(:last)").remove(); // Remove all rows except for the first one and the last one
+      headersTable.find("tr:gt(0)").remove(); // Remove all rows except for the first one and the last one
       $.each(request.headers, function (i, header) {
         var row = $("<tr></tr>");
         row.append($("<td></td>").text(header.name));
         row.append($("<td></td>").text(header.values.join(", ")));
-        row.append(
-          $("<td></td>").append(
-            $("<button>Delete</button>").click(function () {
-              $(this).parent().parent().remove();
-            })
-          )
-        ); // Add "Delete" button
-        headersTable.find("tr:last").before(row); // Insert the new row before the last row
+        headersTable.append(row);
       });
     });
     reqDropdown.trigger("change");
