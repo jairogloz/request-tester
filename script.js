@@ -16,36 +16,68 @@ $(document).ready(function () {
     $(this).closest("tr").remove();
   });
 
-  // Add event listener for "Send Request" button
   $("#sendRequest").click(function () {
-    var verb = $("#verbDropdown").val();
-    var headers = {};
-    $("#headersTable tr").each(function () {
-      var headerName = $(this).find("td").eq(0).find("input").val();
-      var headerValue = $(this).find("td").eq(1).find("input").val();
-      if (headerName && headerValue) {
-        headers[headerName] = headerValue;
-      }
-    });
-    var body = $("#requestBody").val();
+    // Get the selected request
+    var selectedRequest = $("#requestDropdown option:selected").text();
 
-    $.ajax({
-      url: $("#requestDropdown").val(),
-      type: verb,
-      headers: headers,
-      data: body,
-      success: function (response, textStatus, xhr) {
-        $("#responseStatus").text(xhr.status);
-        $("#responseHeaders").text(JSON.stringify(xhr.getAllResponseHeaders()));
-        $("#responseBody").text(JSON.stringify(response));
-        $("#responseError").text("");
-      },
-      error: function (xhr, textStatus, errorThrown) {
-        $("#responseStatus").text(xhr.status);
-        $("#responseHeaders").text(JSON.stringify(xhr.getAllResponseHeaders()));
-        $("#responseBody").text("");
-        $("#responseError").text(errorThrown);
-      },
+    // Find the corresponding request in your requests.json file
+    $.getJSON("data/requests.json", function (requests) {
+      var request = requests.find((r) => r.name === selectedRequest);
+      // Send the request
+      var headersMap = request.headers.reduce(function (map, obj) {
+        map[obj.name] = obj.values;
+        return map;
+      }, {});
+      console.log(headersMap);
+      $.ajax({
+        url: request.url,
+        type: request.verb,
+        headers: headersMap,
+        data: request.body,
+        success: function (response, textStatus, xhr) {
+          console.log("success");
+          // Populate the response elements
+          $("#responseStatus").text(xhr.status);
+
+          var headers = xhr
+            .getAllResponseHeaders()
+            .trim()
+            .split(/[\r\n]+/);
+          var headersMap = headers.map(function (header) {
+            var parts = header.split(": ");
+            var headerObj = {};
+            headerObj[parts[0]] = parts[1];
+            return headerObj;
+          });
+          $("#responseHeaders").text(JSON.stringify(headersMap, null, 2));
+
+          $("#responseBody").text(JSON.stringify(response, null, 2));
+          $("#responseError").text("");
+        },
+        error: function (xhr, textStatus, errorThrown) {
+          console.log("error");
+          // Populate the error element
+          $("#responseStatus").text(xhr.status);
+
+          var headers = xhr
+            .getAllResponseHeaders()
+            .trim()
+            .split(/[\r\n]+/);
+          var headersMap = headers.map(function (header) {
+            var parts = header.split(": ");
+            var headerObj = {};
+            headerObj[parts[0]] = parts[1];
+            return headerObj;
+          });
+          $("#responseHeaders").text(JSON.stringify(headersMap, null, 2));
+
+          // Parse the JSON response body
+          var responseBody = JSON.parse(xhr.responseText);
+          $("#responseBody").text(JSON.stringify(responseBody, null, 2));
+
+          $("#responseError").text(errorThrown);
+        },
+      });
     });
   });
 });
