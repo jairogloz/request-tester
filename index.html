@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Request Example</title>
+</head>
+<body>
+    <button id="fetchButtonLocal">Send API Request Local</button>
+    <script>
+        
+        document.getElementById('fetchButtonLocal').addEventListener('click', function() {
+            const apiUrl = 'http://127.0.0.1:8010/v3/sigma/custom_label_types';
+            //const apiUrl = 'http://127.0.0.1:8080';
+            const headers = {
+                'User-Email': 'email@domain.com',
+                'Authorization': 'Token eyJhbGcijrktUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTMyNDM4NzIsImlhdCI6MTcxMzIwMDY3MiwiaWQiOiI0NTBjNGJlZC03MTYxLTRhYzktOThlYS00NTk5ODk5MGE1ODUiLCJqdGkiOiJJUHFIbiJ9.69sleO3hsbraIRlfFVnG9rjuTvsFGo0n0Qb-biUgWX4',
+                'Environment': 'live'
+            };
+
+            fetch(apiUrl, { headers: headers })
+                .then(response => {
+                    console.log("response.status",response.status);
+                    return response.json()
+                }) // converting the response to JSON
+                .then(data => {
+                    console.log("data", data)
+                }) // logging the data to the console
+                .catch(error => console.error('Error:', error)); // logging errors to the console
+        });
+
+    
+    </script>
+</body>
+</html>
