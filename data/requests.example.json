@@ -1,0 +1,39 @@
+[
+  {
+    "name": "Request 1",
+    "url": "url",
+    "verb": "GET",
+    "headers": [
+      {
+        "name": "Authorization",
+        "values": [
+          "Token abc"
+        ]
+      },
+      {
+        "name": "Other",
+        "values": [
+          "cde"
+        ]
+      }
+    ],
+    "body": {
+      "key1": "value1",
+      "key2": "value2"
+    }
+  },
+  {
+    "name": "Request 2",
+    "url": "https://example.com/api/request2",
+    "verb": "POST",
+    "headers": [
+      {
+        "name": "Email",
+        "values": [
+          "a@b.com"
+        ]
+      }
+    ],
+    "body": null
+  }
+]
