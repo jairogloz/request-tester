@@ -30,8 +30,12 @@
             <th></th>
         </tr>
         <!-- Rows will be populated from selected request -->
+        <tr>
+            <td><input id="newHeaderName" type="text" placeholder="Header name"></td>
+            <td><input id="newHeaderValue" type="text" placeholder="Header value"></td>
+            <td><button id="addHeaderButton">Add</button></td>
+        </tr>
     </table>
-    <button id="addHeader">Add Header</button>
     <hr>
     <textarea id="requestBody"></textarea>
     <button id="sendRequest">Send Request</button>
