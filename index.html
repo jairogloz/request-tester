@@ -4,37 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Request Example</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
-<body>
-    <select id="requestDropdown">
-        <!-- Options will be populated from JSON files -->
-    </select>
-    <hr>
-    <label>URL: <span id="urlValue"></span></label>
-    <hr>
-    <label>Verb: <span id="verbValue"></span></label>
-    <hr>
-    <label>Headers: </label>
-    <table id="headersTable">
-        <tr>
-            <th>Name</th>
-            <th>Value</th>
-        </tr>
-        <!-- Rows will be populated from selected request -->
-    </table>
-    <hr>
-    <label>Body: </label>
-    <br>
-    <textarea id="requestBody" disabled rows="10"></textarea>
-    <hr>
-    <button id="sendRequest">Send Request</button>
-    <h2>Response</h2>
-    <p>Status: <span id="responseStatus"></span></p>
-    <p>Headers: <span id="responseHeaders"></span></p>
-    <p>Body: <span id="responseBody"></span></p>
-    <p>Error: <span id="responseError"></span></p>
+<body class="p-5">
+    <div class="container">
+        <div class="form-group">
+            <label for="requestDropdown">Select Request</label>
+            <select id="requestDropdown" class="form-control">
+                <!-- Options will be populated from JSON files -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="urlValue">URL</label>
+            <span id="urlValue" class="form-control"></span>
+        </div>
+        <div class="form-group">
+            <label for="verbValue">Verb</label>
+            <span id="verbValue" class="form-control"></span>
+        </div>
+        <div class="form-group">
+            <label for="headersTable">Headers</label>
+            <table id="headersTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <!-- Rows will be populated from selected request -->
+            </table>
+        </div>
+        <div class="form-group">
+            <label for="requestBody">Body</label>
+            <textarea id="requestBody" class="form-control" disabled rows="10"></textarea>
+        </div>
+        <button id="sendRequest" class="btn btn-primary">Send Request</button>
+        <h2 class="mt-5">Response</h2>
+        <div class="form-group">
+            <label for="responseStatus">Status</label>
+            <span id="responseStatus" class="form-control"></span>
+        </div>
+        <div class="form-group">
+            <label for="responseHeaders">Headers</label>
+            <span id="responseHeaders" class="form-control"></span>
+        </div>
+        <div class="form-group">
+            <label for="responseBody">Body</label>
+            <textarea id="responseBody" class="form-control" rows="10" readonly></textarea>
+        </div>
+        <div class="form-group">
+            <label for="responseError">Error</label>
+            <span id="responseError" class="form-control"></span>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

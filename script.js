@@ -50,7 +50,7 @@ $(document).ready(function () {
           });
           $("#responseHeaders").text(JSON.stringify(headersMap, null, 2));
 
-          $("#responseBody").text(JSON.stringify(response, null, 2));
+          $("#responseBody").val(JSON.stringify(response, null, 2));
           $("#responseError").text("");
         },
         error: function (xhr, textStatus, errorThrown) {
@@ -107,6 +107,12 @@ function loadRequests() {
         row.append($("<td></td>").text(header.values.join(", ")));
         headersTable.append(row);
       });
+
+      // clear response section
+      $("#responseBody").val("");
+      $("#responseError").text("");
+      $("#responseHeaders").text("");
+      $("#responseStatus").text("");
     });
     reqDropdown.trigger("change");
   });
