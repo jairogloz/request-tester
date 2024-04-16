@@ -4,18 +4,6 @@ $(document).ready(function () {
 
   loadRequests();
 
-  // Add event listener for "Add Header" button
-  $("#addHeader").click(function () {
-    $("#headersTable").append(
-      '<tr><td><input type="text"></td><td><input type="text"></td><td><button class="deleteHeader">Delete</button></td></tr>'
-    );
-  });
-
-  // Add event listener for "Delete" buttons
-  $(document).on("click", ".deleteHeader", function () {
-    $(this).closest("tr").remove();
-  });
-
   $("#sendRequest").click(function () {
     // Get the selected request
     var selectedRequest = $("#requestDropdown option:selected").text();
